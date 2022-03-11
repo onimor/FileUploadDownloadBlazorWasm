@@ -1,0 +1,35 @@
+﻿@page "/"
+@inject HttpClient httpClient
+@inject IJSRuntime JS
+
+<h1>Hello, world! Eat up RAM ?</h1>
+
+<button class="btn btn-primary" @onclick="load">Download</button>
+@if(_log != string.Empty)
+{
+   <p role="status">Log: @_log</p> 
+}
+
+@code{
+    private string _log;
+    private async void load()
+    {
+        _log = string.Empty;
+        try
+        { 
+            _log += "Download start";
+            var fileStream = await httpClient.GetStreamAsync("api/TestFile");
+            _log += $" >>> FileSize = {fileStream.Length}"; 
+            var fileName = "log.bin";
+            using var streamRef = new DotNetStreamReference(stream: fileStream);
+            await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
+            await fileStream.DisposeAsync(); 
+            _log += $" >>> DownLoad end"; 
+        }
+        catch(Exception ex)
+        {
+            _log += $" >>> ERROR: {ex.Message}";
+        } 
+        this.StateHasChanged();
+    }
+}
