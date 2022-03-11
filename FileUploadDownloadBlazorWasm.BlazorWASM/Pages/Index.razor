@@ -5,13 +5,14 @@
 <h1>Hello, world! Eat up RAM ?</h1>
 
 <button class="btn btn-primary" @onclick="load">Download</button>
+
 @if(_log != string.Empty)
 {
    <p role="status">Log: @_log</p> 
 }
 
 @code{
-    private string _log;
+    private string _log = string.Empty;
     private async void load()
     {
         _log = string.Empty;
