@@ -14,8 +14,4 @@
     <ProjectReference Include="..\FileUploadDownloadBlazorWasm.BlazorWASM\FileUploadDownloadBlazorWasm.BlazorWASM.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\TestFile\" />
-  </ItemGroup>
-
 </Project>
